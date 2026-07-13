@@ -1,7 +1,7 @@
 // routes/users.js
 const express = require('express');
 const User = require('../models/User');
-const Reel = require('../models/Reel');
+const Reel = require('../models/reel');
 const Like = require('../models/Like');
 
 const router = express.Router();
