@@ -1,0 +1,21 @@
+const mongoose = require('mongoose');
+
+const commentSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
+  reel: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Reel',
+    required: true
+  },
+  text: {
+    type: String,
+    required: true,
+    maxLength: 500 // Keep the UI clean, no essays
+  }
+}, { timestamps: true });
+
+module.exports = mongoose.model('Comment', commentSchema);
