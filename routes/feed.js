@@ -1,6 +1,6 @@
 // routes/feed.js
 const express = require('express');
-const Reel = require('../models/Reel');
+const Reel = require('../models/reel');
 
 const router = express.Router();
 
