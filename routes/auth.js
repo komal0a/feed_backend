@@ -60,13 +60,13 @@ router.post('/login', async (req, res) => {
       { expiresIn: '7d' }
     );
 
-    // 4. Set the secure HTTP-Only Cookie
-    res.cookie('token', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', // True on Render, false on localhost
-      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
-      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
-    });
+   // 4. Set the secure HTTP-Only Cookie
+res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,          // Always true on Render (HTTPS)
+  sameSite: "none",      // Required for Vercel -> Render
+  maxAge: 7 * 24 * 60 * 60 * 1000,
+});
 
     // 5. Send back user data (without the password)
     res.json({
@@ -85,14 +85,14 @@ router.post('/login', async (req, res) => {
 });
 
 // --- LOGOUT ROUTE ---
-router.post('/logout', (req, res) => {
-  // Clear the cookie to log the user out
-  res.clearCookie('token', {
+router.post("/logout", (req, res) => {
+  res.clearCookie("token", {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+    secure: true,
+    sameSite: "none",
   });
-  res.json({ message: 'Logged out successfully' });
+
+  res.json({ message: "Logged out successfully" });
 });
 
 module.exports = router;
